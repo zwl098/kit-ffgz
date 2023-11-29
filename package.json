@@ -18,6 +18,9 @@
     "commands": [{
       "command": "reminder.setUserName",
       "title": "setUserName"
+    },{
+      "command": "reminder.setReminderTime",
+      "title": "setReminderTime"
     }]
   },
   "scripts": {
