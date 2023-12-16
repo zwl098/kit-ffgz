@@ -1,41 +1,90 @@
 {
-  "name": "reminder-ffgz",
-  "displayName": "reminder-ffgz",
-  "publisher": "zhangwenling",
-  "description": "this is a reminder",
-  "version": "0.0.3",
-  "engines": {
-    "vscode": "^1.84.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "main": "./extension.js",
-  "contributes": {
-    "commands": [{
-      "command": "reminder.setUserName",
-      "title": "setUserName"
-    },{
-      "command": "reminder.setReminderTime",
-      "title": "setReminderTime"
-    }]
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "yarn run lint",
-    "test": "node ./test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.84.0",
-    "@types/mocha": "^10.0.3",
-    "@types/node": "18.x",
-    "eslint": "^8.52.0",
-    "glob": "^10.3.10",
-    "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.6"
-  }
+    "name": "reminder-ffgz",
+    "displayName": "reminder-ffgz",
+    "publisher": "zhangwenling",
+    "description": "this is a reminder",
+    "version": "0.0.3",
+    "engines": {
+        "vscode": "^1.84.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "reminder.setUserName",
+                "title": "setUserName"
+            },
+            {
+                "command": "reminder.setReminderTime",
+                "title": "setReminderTime"
+            },
+            {
+                "command": "reminder.addConsole",
+                "title": "addConsole"
+            }
+        ],
+        "configuration": {
+            "title": "reminder",
+            "properties": {
+                "reminder.suffix": {
+                    "type": "string",
+                    "default": "【 一个骚骚的前缀 => ",
+                    "description": "console前缀"
+                },
+                "reminder.fixStyle": {
+                    "type": "string",
+                    "default": "color:#fff;background:#000",
+                    "description": "前缀样式"
+                },
+                "reminder.userName": {
+                    "type": "string",
+                    "default": "ffgz",
+                    "description": "用户名"
+                },
+                "reminder.reminderTime": {
+                    "type": "",
+                    "default": "2021-10-01",
+                    "description": "提醒间隔时间"
+                }
+            }
+        },
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "command": "reminder.addConsole",
+                    "group": "navigation@1"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "reminder.addConsole",
+                "key": "alt+c",
+                "mac": "alt+c",
+                "when": "editorFocus"
+            }
+        ]
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "yarn run lint",
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.84.0",
+        "@types/mocha": "^10.0.3",
+        "@types/node": "18.x",
+        "eslint": "^8.52.0",
+        "glob": "^10.3.10",
+        "mocha": "^10.2.0",
+        "typescript": "^5.2.2",
+        "@vscode/test-electron": "^2.3.6"
+    }
 }
