@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const { addConsole } = require('./consoleKey.js');
 // 时间状态栏
 const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 let startTime;
@@ -96,6 +97,9 @@ let setReminderTime = vscode.commands.registerCommand('reminder.setReminderTime'
 
   setInterval(updateStatusBar, 1000);
 
+   // 注册 “一键插入log” 的命令 
+	let consoleKey = vscode.commands.registerCommand('reminder.addConsole', addConsole);
+	context.subscriptions.push(consoleKey);
   context.subscriptions.push(statusBar);
 	context.subscriptions.push(setUserName);
 	context.subscriptions.push(setReminderTime);
