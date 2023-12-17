@@ -4,6 +4,7 @@
   "publisher": "zhangwenling",
   "description": "this is a reminder",
   "version": "0.0.3",
+  "icon": "images/icon.jfif",
   "engines": {
     "vscode": "^1.84.0"
   },
