@@ -3,7 +3,7 @@
     "displayName": "reminder-ffgz",
     "publisher": "zhangwenling",
     "description": "this is a reminder",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
@@ -70,6 +70,12 @@
                 "key": "alt+c",
                 "mac": "alt+c",
                 "when": "editorFocus"
+            },
+            {
+                "command": "reminder.translate",
+                "key": "Alt+X",
+                "mac": "Alt+X",
+                "when": "editorTextFocus&&editorHasSelection"
             }
         ]
     },
@@ -87,5 +93,8 @@
         "mocha": "^10.2.0",
         "typescript": "^5.2.2",
         "@vscode/test-electron": "^2.3.6"
+    },
+    "dependencies": {
+        "bing-translate-api": "^3.0.0"
     }
 }
