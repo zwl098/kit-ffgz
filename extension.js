@@ -1,9 +1,9 @@
 const vscode = require("vscode");
-const { addConsole } = require("./res/consoleKey.js");
-const { updateStatusBar, statusBar } = require("./res/updateStatusBar.js");
-const { setTime } = require("./res/setReminderTime.js");
-const { setAccount } = require("./res/setUser.js");
-const { ZH_EN_translater } = require("./res/translate.js");
+const { addConsole } = require("./consoleKey.js");
+const { updateStatusBar, statusBar } = require("./updateStatusBar.js");
+const { setTime } = require("./setReminderTime.js");
+const { setAccount } = require("./setUser.js");
+const { ZH_EN_translater } = require("./translate.js");
 
 /**
  * @param {vscode.ExtensionContext} context
