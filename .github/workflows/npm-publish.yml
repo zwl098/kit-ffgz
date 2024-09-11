@@ -3,7 +3,7 @@ on:
     tags:
       - "*"
   workflow_dispatch:
-  
+
 name: Deploy Extension
 jobs:
   deploy:
@@ -13,7 +13,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: yarn build
+        run: |
+          npm i yarn
+          yarn build
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
