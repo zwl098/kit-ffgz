@@ -1,9 +1,13 @@
 {
-    "name": "reminder-ffgz",
-    "displayName": "reminder-ffgz",
-    "publisher": "zhangwenling",
-    "description": "this is a reminder",
-    "version": "0.0.4",
+    "name": "kit-ffgz",
+    "displayName": "kit-ffgz",
+    "publisher": "ffgz",
+    "description": "this is a kit",
+    "repository": {
+        "type": "git",
+        "url": "https://gitee.com/zwl257/reminder-ffgz.git"
+    },
+    "version": "0.0.12",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
@@ -14,7 +18,7 @@
     "activationEvents": [
         "onStartupFinished"
     ],
-    "main": "./extension.js",
+    "main": "./dist/extension.js",
     "contributes": {
         "commands": [
             {
@@ -28,6 +32,14 @@
             {
                 "command": "reminder.addConsole",
                 "title": "addConsole"
+            },
+            {
+                "command": "reminder.removeConsole",
+                "title": "removeConsole"
+            },
+            {
+                "command": "reminder.clearEmptyLines",
+                "title": "clearEmptyLines"
             }
         ],
         "configuration": {
@@ -35,7 +47,7 @@
             "properties": {
                 "reminder.suffix": {
                     "type": "string",
-                    "default": "【 一个骚骚的前缀 => ",
+                    "default": "·",
                     "description": "console前缀"
                 },
                 "reminder.fixStyle": {
@@ -52,6 +64,11 @@
                     "type": "",
                     "default": "2021-10-01",
                     "description": "提醒间隔时间"
+                },
+                "reminder.showStatusBar": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否展示运行时间"
                 }
             }
         },
@@ -67,8 +84,8 @@
         "keybindings": [
             {
                 "command": "reminder.addConsole",
-                "key": "alt+c",
-                "mac": "alt+c",
+                "key": "alt+C",
+                "mac": "alt+C",
                 "when": "editorFocus"
             },
             {
@@ -76,23 +93,28 @@
                 "key": "Alt+X",
                 "mac": "Alt+X",
                 "when": "editorTextFocus&&editorHasSelection"
+            },
+            {
+                "command": "reminder.removeConsole",
+                "key": "Alt+D",
+                "mac": "Alt+D"
+            },
+            {
+                "command": "reminder.clearEmptyLines",
+                "key": "Alt+V",
+                "mac": "Alt+V"
             }
         ]
     },
     "scripts": {
-        "lint": "eslint .",
-        "pretest": "yarn run lint",
-        "test": "node ./test/runTest.js"
+        "vscode:prepublish": "webpack --mode production",
+        "compile": "webpack --mode none",
+        "watch": "webpack --mode none --watch",
+        "build": "vsce package patch"
     },
     "devDependencies": {
-        "@types/vscode": "^1.84.0",
-        "@types/mocha": "^10.0.3",
-        "@types/node": "18.x",
-        "eslint": "^8.52.0",
-        "glob": "^10.3.10",
-        "mocha": "^10.2.0",
-        "typescript": "^5.2.2",
-        "@vscode/test-electron": "^2.3.6"
+        "webpack": "^5.94.0",
+        "webpack-cli": "^5.1.4"
     },
     "dependencies": {
         "bing-translate-api": "^3.0.0"

@@ -7,3 +7,9 @@
 > setRemindTime :设置提醒间隔时间（分钟）
 
 > addConsole :设置打印数据(选中的，或光标前的一个单词)
+
+还有一些杂 7 杂 8 的小功能
+
+> Alt + c 快速 console.log
+
+> Alt + x 翻译单词
