@@ -24,5 +24,5 @@ jobs:
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          packagePath: ./kit-ffgz-patch.vsix
+          packagePath: ./
           # extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
