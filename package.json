@@ -113,6 +113,7 @@
         "build": "vsce package patch"
     },
     "devDependencies": {
+        "vsce": "^2.15.0",
         "webpack": "^5.94.0",
         "webpack-cli": "^5.1.4"
     },

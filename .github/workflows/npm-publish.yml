@@ -16,7 +16,7 @@ jobs:
       - name: Run Project
         run: |
           npm i yarn
-          yarn
+          yarn install
           yarn build
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
