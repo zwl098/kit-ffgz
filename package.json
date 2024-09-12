@@ -1,13 +1,13 @@
 {
     "name": "kits-ffgz",
     "displayName": "kits-ffgz",
-    "publisher": "ffgz",
+    "publisher": "feifeigongzhu",
     "description": "this is a kit",
     "repository": {
         "type": "git",
         "url": "https://gitee.com/zwl257/reminder-ffgz.git"
     },
-    "version": "0.0.12",
+    "version": "0.0.13",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
