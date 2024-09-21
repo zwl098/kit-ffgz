@@ -13,9 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Run Project
+      - name: Project build
         run: |
-          npm i yarn
           yarn install
           yarn build
       - name: Publish to Visual Studio Marketplace
@@ -25,4 +24,3 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           vsixPath: ./kit-ffgz-patch.vsix
-          # extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}

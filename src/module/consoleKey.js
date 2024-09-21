@@ -6,7 +6,7 @@ async function addConsole() {
   // 只需要加这一行，在开启其他逻辑之前先调用内置命令"cursorWordLeftSelect"
   // 需要注意的是，所有命令返回的都是promise，所以需要加个 async await 等待一下
   // api 废弃,停用
-  // await vscode.commands.executeCommand("cursorWordLeftSelect"); 
+  await vscode.commands.executeCommand("cursorWordLeftSelect");
   // 获取当前打开的文件的editor
   const editor = vscode.window.activeTextEditor;
   // editor === undefind 表示没有打开的文件
