@@ -6,7 +6,6 @@ const { setAccount } = require("./src/module/setUser.js");
 const { ZH_EN_translater } = require("./src/module/translate.js");
 const { removeConsole } = require("./src/module/removeConsole.js")
 const { removeEmptyLine } = require("./src/module/removeEmptyLine.js")
-var a
 /**
  * @param {vscode.ExtensionContext} context
  */
