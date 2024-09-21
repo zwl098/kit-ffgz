@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://gitee.com/zwl257/reminder-ffgz.git"
     },
-    "version": "0.0.13",
+    "version": "0.0.14",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
