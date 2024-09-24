@@ -7,6 +7,9 @@
         "type": "git",
         "url": "https://gitee.com/zwl257/reminder-ffgz.git"
     },
+    "keywords": [
+        "kit"
+    ],
     "version": "0.0.16",
     "icon": "images/icon.jfif",
     "engines": {
@@ -120,7 +123,8 @@
         "compile": "webpack --mode none",
         "watch": "webpack --mode none --watch",
         "build": "vsce package",
-        "build:patch": "vsce package patch"
+        "build:patch": "vsce package patch",
+        "clean": "rm -rf ./node_modules & rm -rf packages/**/node_modules & rm -rf packages/**/.cache"
     },
     "devDependencies": {
         "vsce": "^2.15.0",
