@@ -1,7 +1,6 @@
 // -- index.js (入口文件)
 const vscode = require("vscode");
-
-async function addConsole() {
+const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async function () {
   const editor = vscode.window.activeTextEditor
   if (!editor) return;
   const textArray = []
@@ -39,8 +38,8 @@ async function addConsole() {
       });
     });
   });
-}
+});
 
 module.exports = {
-  addConsole,
+  consoleKey
 };

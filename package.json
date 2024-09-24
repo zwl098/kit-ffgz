@@ -40,6 +40,10 @@
             {
                 "command": "reminder.clearEmptyLines",
                 "title": "clearEmptyLines"
+            },
+            {
+                "command": "reminder.removeComments",
+                "title": "removeComments"
             }
         ],
         "configuration": {
@@ -77,6 +81,11 @@
                 {
                     "when": "editorFocus",
                     "command": "reminder.addConsole",
+                    "group": "navigation@1"
+                },
+                {
+                    "when": "editorFocus",
+                    "command": "reminder.removeComments",
                     "group": "navigation@1"
                 }
             ]
