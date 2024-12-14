@@ -7,6 +7,7 @@ const { ZH_EN_translater } = require("./src/module/translate.js");
 const { removeConsole } = require("./src/module/removeConsole.js")
 const { clearEmptyLines } = require("./src/module/removeEmptyLine.js")
 const { clearCommments } = require("./src/module/removeComments.js")
+const { setDailyReminder } = require("./src/module/timeReminder.js")
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -23,6 +24,8 @@ function activate(context) {
   context.subscriptions.push(removeConsole);
   context.subscriptions.push(clearEmptyLines);
   context.subscriptions.push(clearCommments);
+  context.subscriptions.push(setDailyReminder);
+  vscode.commands.executeCommand('reminder.setDailyReminder')
 }
 function deactivate() {
   statusBar.dispose();

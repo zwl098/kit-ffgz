@@ -47,6 +47,10 @@
             {
                 "command": "reminder.removeComments",
                 "title": "removeComments"
+            },
+            {
+                "command": "reminder.setDailyReminder",
+                "title": "setDailyReminder"
             }
         ],
         "configuration": {
