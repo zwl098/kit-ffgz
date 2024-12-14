@@ -1,7 +1,9 @@
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - master  // 触发分支
+    # tags:
+    #   - "v*"
   workflow_dispatch:
 
 name: Deploy Extension
