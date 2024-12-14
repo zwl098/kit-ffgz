@@ -10,7 +10,7 @@
     "keywords": [
         "kit"
     ],
-    "version": "0.0.16",
+    "version": "0.0.17",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
