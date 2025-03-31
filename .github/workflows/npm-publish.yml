@@ -1,24 +1,41 @@
+name: Publish VS Code Extension
+
 on:
   push:
     branches:
       - master  # 触发分支
-    # tags:
-    #   - "v*"
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - '.github/**'
+  tags:
+    - 'v*'
   workflow_dispatch:
 
-name: Deploy Extension
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Project build
+          cache: 'yarn'
+          
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        
+      - name: Build project
+        run: yarn build
+        
+      - name: Verify build output
         run: |
-          yarn install
-          yarn build
+          if [ ! -f "./kit-ffgz-patch.vsix" ]; then
+            echo "Build output not found!"
+            exit 1
+          fi
+          
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX
@@ -26,3 +43,18 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           vsixPath: ./kit-ffgz-patch.vsix
+          
+      - name: Notify on success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const version = context.ref.replace('refs/tags/', '');
+            const message = `✅ Extension published successfully!\nVersion: ${version}\nMarketplace: https://marketplace.visualstudio.com/items?itemName=${owner}.${repo}`;
+            github.rest.repos.createCommitComment({
+              owner,
+              repo,
+              commit_sha: context.sha,
+              body: message
+            });
