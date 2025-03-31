@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master  // 触发分支
+      - master  # 触发分支
     # tags:
     #   - "v*"
   workflow_dispatch:
