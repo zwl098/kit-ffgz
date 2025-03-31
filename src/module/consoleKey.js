@@ -4,7 +4,17 @@ const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async 
   const editor = vscode.window.activeTextEditor
   if (!editor) return;
   const textArray = []
-  await vscode.commands.executeCommand('editor.action.addSelectionToNextFindMatch')
+  // await vscode.commands.executeCommand('editor.action.addSelectionToNextFindMatch')
+  const isCursor = vscode.workspace.getConfiguration().get("reminder.isCursor");
+  if (isCursor) {
+    const document = editor.document;
+    const position = editor.selection.active; // 当前光标位置
+    const wordRange = document.getWordRangeAtPosition(position); // 获取单词范围
+    if (wordRange) {
+      // 设置选区（只选中当前单词）
+      editor.selection = new vscode.Selection(wordRange.start, wordRange.end);
+    }
+  }
   const Ranges = editor.selections
   // 用”属性标识“ 分别获取属性 “前缀” 和 “样式“
   const suffix = vscode.workspace.getConfiguration().get("reminder.suffix");

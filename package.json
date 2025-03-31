@@ -10,7 +10,7 @@
     "keywords": [
         "kit"
     ],
-    "version": "0.0.18",
+    "version": "0.0.19",
     "icon": "images/icon.jfif",
     "engines": {
         "vscode": "^1.84.0"
@@ -80,6 +80,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "是否展示运行时间"
+                },
+                "reminder.isCursor": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否光标选中(光标或划词)"
                 }
             }
         },
