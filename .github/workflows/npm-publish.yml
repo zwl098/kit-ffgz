@@ -3,18 +3,20 @@ name: Publish VS Code Extension
 on:
   push:
     branches:
-      - master  # 触发分支
+      - master
     paths-ignore:
       - 'README.md'
       - 'docs/**'
       - '.github/**'
-  tags:
-    - 'v*'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:  
+      contents: write  # 允许写入 commit 评论
     steps:
       - uses: actions/checkout@v4
       
@@ -27,14 +29,21 @@ jobs:
         run: yarn install --frozen-lockfile
         
       - name: Build project
-        run: yarn build
+        run: |
+          echo "Starting build process..."
+          echo "Running webpack build..."
+          echo "Running vsce package..."
+          yarn build
+          echo "Build completed. Checking output directory..."
+          ls -la
         
       - name: Verify build output
         run: |
-          if [ ! -f "./kit-ffgz-patch.vsix" ]; then
-            echo "Build output not found!"
+          if [ -z "$(find . -name 'kits-ffgz-*.vsix' -print -quit)" ]; then
+            echo "Error: No .vsix file found matching 'kits-ffgz-*.vsix'"
             exit 1
           fi
+          echo "Found .vsix file: $(find . -name 'kits-ffgz-*.vsix')"
           
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
@@ -42,7 +51,7 @@ jobs:
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          vsixPath: ./kit-ffgz-patch.vsix
+          vsixPath: kits-ffgz-*.vsix
           
       - name: Notify on success
         if: success()
