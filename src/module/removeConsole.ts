@@ -1,6 +1,7 @@
-const vscode = require("vscode");
-function getAllLogStatements(document, documentText) {
-  let logStatements = [];
+import * as vscode from "vscode";
+
+function getAllLogStatements(document: vscode.TextDocument, documentText: string) {
+  let logStatements: vscode.Range[] = [];
   const logRegex = /console.(log|debug|info|warn|error|assert|dir|dirxml|trace|group|groupEnd|time|timeEnd|profile|profileEnd|count)\((.*)\);?/g;
   let match;
   while (match = logRegex.exec(documentText)) {
@@ -14,7 +15,8 @@ function getAllLogStatements(document, documentText) {
   }
   return logStatements;
 }
-function deleteFoundLogStatements(workspaceEdit, docUri, logs) {
+
+function deleteFoundLogStatements(workspaceEdit: vscode.WorkspaceEdit, docUri: vscode.Uri, logs: vscode.Range[]) {
   logs.forEach((log) => {
     workspaceEdit.delete(docUri, log);
   });
@@ -24,7 +26,8 @@ function deleteFoundLogStatements(workspaceEdit, docUri, logs) {
       : vscode.window.showInformationMessage(`${logs.length} console.log deleted`);
   });
 }
-let removeConsole = vscode.commands.registerCommand('reminder.removeConsole', () => {
+
+export let removeConsole = vscode.commands.registerCommand('reminder.removeConsole', () => {
   const editor = vscode.window.activeTextEditor;
   if (!editor) { return; }
   const document = editor.document;
@@ -33,6 +36,3 @@ let removeConsole = vscode.commands.registerCommand('reminder.removeConsole', ()
   const logStatements = getAllLogStatements(document, documentText);
   deleteFoundLogStatements(workspaceEdit, document.uri, logStatements);
 });
-module.exports = {
-  removeConsole
-};

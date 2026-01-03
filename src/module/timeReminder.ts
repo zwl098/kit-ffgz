@@ -1,5 +1,6 @@
-const vscode = require("vscode");
-let setDailyReminder = vscode.commands.registerCommand('reminder.setDailyReminder', () => {
+import * as vscode from "vscode";
+
+export let setDailyReminder = vscode.commands.registerCommand('reminder.setDailyReminder', () => {
   // 目标时间固定为 18:00
   const targetHours = 18;
   const targetMinutes = 0;
@@ -27,7 +28,8 @@ let setDailyReminder = vscode.commands.registerCommand('reminder.setDailyReminde
     scheduleNextReminder();
   }, delayInMilliseconds);
 });
-function scheduleNextReminder() {
+
+export function scheduleNextReminder() {
   const targetHours = 18;
   const targetMinutes = 0;
   // 下一次提醒的时间为第二天的18:00
@@ -40,8 +42,4 @@ function scheduleNextReminder() {
     scheduleNextReminder();
   }, delayInMilliseconds);
 }
-module.exports = {
-  setDailyReminder,
-  scheduleNextReminder
-};
 

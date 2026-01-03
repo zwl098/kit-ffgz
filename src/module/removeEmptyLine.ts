@@ -1,10 +1,11 @@
-const vscode = require('vscode');
-let clearEmptyLines = vscode.commands.registerCommand('reminder.clearEmptyLines', function () {
+import * as vscode from 'vscode';
+
+export let clearEmptyLines = vscode.commands.registerCommand('reminder.clearEmptyLines', function () {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
 		const document = editor.document;
 		const lineCount = document.lineCount;
-		let edits = [];
+		let edits: vscode.TextEdit[] = [];
 		let deletedLineCount = 0;
 		for (let lineNumber = 0; lineNumber < lineCount; lineNumber++) {
 			const line = document.lineAt(lineNumber);
@@ -25,7 +26,3 @@ let clearEmptyLines = vscode.commands.registerCommand('reminder.clearEmptyLines'
 		}
 	}
 });
-
-module.exports = {
-	clearEmptyLines
-}

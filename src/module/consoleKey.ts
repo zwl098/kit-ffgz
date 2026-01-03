@@ -1,9 +1,9 @@
-// -- index.js (入口文件)
-const vscode = require("vscode");
-const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async function () {
+import * as vscode from "vscode";
+
+export const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async function () {
   const editor = vscode.window.activeTextEditor
   if (!editor) return;
-  const textArray = []
+  const textArray: string[] = []
   // await vscode.commands.executeCommand('editor.action.addSelectionToNextFindMatch')
   const isCursor = vscode.workspace.getConfiguration().get("reminder.isCursor");
   if (isCursor) {
@@ -36,8 +36,9 @@ const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async 
   // “光标换行” 调用vscode内置的换行命令，所有focus的光标都会换行
   vscode.commands.executeCommand("editor.action.insertLineAfter").then(() => {
     const editor = vscode.window.activeTextEditor;
+    if (!editor) return;
     const Ranges = editor.selections;
-    const positionList = [];
+    const positionList: vscode.Position[] = [];
     Ranges.forEach((range, index) => {
       const position = new vscode.Position(range.start.line, range.start.character);
       positionList.push(position);
@@ -49,7 +50,3 @@ const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async 
     });
   });
 });
-
-module.exports = {
-  consoleKey
-};

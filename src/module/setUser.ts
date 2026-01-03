@@ -1,9 +1,10 @@
-const vscode = require("vscode");
-const { getReminderTime } = require("./setReminderTime.js");
+import * as vscode from "vscode";
+import { getReminderTime } from "./setReminderTime";
+
 /*
  * 设置用户姓名
  **/
-function setAccount(context) {
+export function setAccount(context: vscode.ExtensionContext) {
   if (!context.globalState.get("username")) {
     vscode.window
       .showInputBox({
@@ -34,6 +35,3 @@ function setAccount(context) {
   });
   return setUserName;
 }
-module.exports = {
-  setAccount,
-};

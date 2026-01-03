@@ -1,5 +1,6 @@
-const vscode = require('vscode');
-let clearCommments = vscode.commands.registerCommand('reminder.removeComments', () => {
+import * as vscode from 'vscode';
+
+export let clearCommments = vscode.commands.registerCommand('reminder.removeComments', () => {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     const document = editor.document;
@@ -14,6 +15,3 @@ let clearCommments = vscode.commands.registerCommand('reminder.removeComments', 
     });
   }
 });
-module.exports = {
-  clearCommments
-}

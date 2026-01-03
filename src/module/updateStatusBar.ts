@@ -1,8 +1,8 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 // 时间状态栏
-const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-let startTime;
-function updateStatusBar() {
+export const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+export let startTime: number;
+export function updateStatusBar() {
   const currentTime = new Date().getTime();
   const timeDiff = new Date(currentTime - startTime);
   const hours = timeDiff.getUTCHours();
@@ -20,8 +20,3 @@ function updateStatusBar() {
   statusBar.show();
 }
 startTime = new Date().getTime();
-module.exports = {
-  updateStatusBar,
-  statusBar,
-  startTime
-};
