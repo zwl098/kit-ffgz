@@ -13,7 +13,7 @@
     "version": "0.0.28",
     "icon": "images/icon.jfif",
     "engines": {
-        "vscode": "^1.84.0"
+        "vscode": "^1.107.0"
     },
     "categories": [
         "Other"
