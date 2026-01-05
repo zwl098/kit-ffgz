@@ -43,11 +43,13 @@ jobs:
         
       - name: Verify build output
         run: |
-          if [ -z "$(find . -name 'kits-ffgz-*.vsix' -print -quit)" ]; then
+          VSIX_PATH=$(find . -maxdepth 1 -name 'kits-ffgz-*.vsix' -print -quit)
+          if [ -z "$VSIX_PATH" ]; then
             echo "Error: No .vsix file found matching 'kits-ffgz-*.vsix'"
             exit 1
           fi
-          echo "Found .vsix file: $(find . -name 'kits-ffgz-*.vsix')"
+          echo "Found .vsix file: $VSIX_PATH"
+          echo "VSIX_PATH=$VSIX_PATH" >> $GITHUB_ENV
           
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
@@ -55,7 +57,7 @@ jobs:
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          extensionFile: kits-ffgz-*.vsix
+          extensionFile: ${{ env.VSIX_PATH }}
           
       - name: Notify on success
         if: success()
