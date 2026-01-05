@@ -51,6 +51,7 @@
 | `reminder.suffix` | `"·"` | Log 里的前缀，想加个骚气的表情也行 |
 | `reminder.fixStyle` | `color:#fff...` | Log 的样式，支持 CSS，整花哨点！ |
 | `reminder.reminderTime` | `30` | 多久唠叨你一次（分钟） |
+| `reminder.dailyReminderTime` | `18:00` | 每天几点喊你下班 (格式 HH:mm) |
 | `reminder.isCursor` | `false` | 开启后，不用选中，光标在哪直接识别单词 |
 
 ---

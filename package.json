@@ -85,6 +85,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "是否光标选中(光标或划词)"
+                },
+                "reminder.dailyReminderTime": {
+                    "type": "string",
+                    "default": "18:00",
+                    "description": "每日下班提醒时间 (格式 HH:mm)"
                 }
             }
         },
