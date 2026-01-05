@@ -55,7 +55,7 @@ jobs:
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          vsixPath: kits-ffgz-*.vsix
+          extensionFile: kits-ffgz-*.vsix
           
       - name: Notify on success
         if: success()
