@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 // 时间状态栏
 export const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 export let startTime: number;
+
 export function updateStatusBar() {
   const currentTime = new Date().getTime();
   const timeDiff = new Date(currentTime - startTime);
@@ -19,4 +20,15 @@ export function updateStatusBar() {
   statusBar.text = `Recording Time: ${displayText}`;
   statusBar.show();
 }
-startTime = new Date().getTime();
+
+export function startStatusBarTimer(): vscode.Disposable {
+  startTime = new Date().getTime();
+  // Initial update
+  updateStatusBar();
+  const intervalId = setInterval(updateStatusBar, 1000);
+
+  return new vscode.Disposable(() => {
+    clearInterval(intervalId);
+    statusBar.dispose();
+  });
+}

@@ -11,7 +11,25 @@ function getTargetTime() {
   return { hours: 18, minutes: 0 };
 }
 
+let timer: NodeJS.Timeout | undefined;
+
+function clearTimer() {
+  if (timer) {
+    clearTimeout(timer);
+    timer = undefined;
+  }
+}
+
+export function disposeReminder() {
+  clearTimer();
+  return new vscode.Disposable(() => {
+    clearTimer();
+  });
+}
+
 export let setDailyReminder = vscode.commands.registerCommand('reminder.setDailyReminder', () => {
+  clearTimer(); // Clear any existing timer before setting a new one
+
   const { hours: targetHours, minutes: targetMinutes } = getTargetTime();
 
   // 获取当前时间
@@ -34,7 +52,7 @@ export let setDailyReminder = vscode.commands.registerCommand('reminder.setDaily
   vscode.window.showInformationMessage(`提醒已设置，每天${timeStr}会提醒您！`);
 
   // 设置定时器提醒
-  setTimeout(() => {
+  timer = setTimeout(() => {
     vscode.window.showInformationMessage('下班时间到啦！今天的班就先上到这里吧,再上就不礼貌啦!');
     // 每天重新设置提醒
     scheduleNextReminder();
@@ -48,7 +66,8 @@ export function scheduleNextReminder() {
   const now = new Date();
   const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, targetHours, targetMinutes, 0);
   const delayInMilliseconds = targetTime.getTime() - now.getTime();
-  setTimeout(() => {
+
+  timer = setTimeout(() => {
     vscode.window.showInformationMessage('下班时间到啦！今天的班就先上到这里吧,再上就不礼貌啦!');
     // 继续设置下一次提醒
     scheduleNextReminder();
