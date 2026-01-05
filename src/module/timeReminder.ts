@@ -23,7 +23,7 @@ export let setDailyReminder = vscode.commands.registerCommand('reminder.setDaily
   vscode.window.showInformationMessage('提醒已设置，每天18:00会提醒您！');
   // 设置定时器提醒
   setTimeout(() => {
-    vscode.window.showInformationMessage('下班时间到了！今天的班就先上到这吧,再上就不礼貌啦!');
+    vscode.window.showInformationMessage('下班时间到啦！今天的班就先上到这里吧,再上就不礼貌啦!');
     // 每天重新设置提醒
     scheduleNextReminder();
   }, delayInMilliseconds);
@@ -37,7 +37,7 @@ export function scheduleNextReminder() {
   const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, targetHours, targetMinutes, 0);
   const delayInMilliseconds = targetTime.getTime() - now.getTime();
   setTimeout(() => {
-    vscode.window.showInformationMessage('下班时间到了！今天的班就先上到这吧,再上就不礼貌啦!');
+    vscode.window.showInformationMessage('下班时间到啦！今天的班就先上到这里吧,再上就不礼貌啦!');
     // 继续设置下一次提醒
     scheduleNextReminder();
   }, delayInMilliseconds);

@@ -3,50 +3,56 @@ import * as vscode from "vscode";
 export const consoleKey = vscode.commands.registerCommand("reminder.addConsole", async function () {
   const editor = vscode.window.activeTextEditor
   if (!editor) return;
+
+  const config = vscode.workspace.getConfiguration("reminder");
+  const suffix = config.get<string>("suffix");
+  const fixStyle = config.get<string>("fixStyle");
+  const isCursor = config.get<boolean>("isCursor");
+
   const textArray: string[] = []
-  // await vscode.commands.executeCommand('editor.action.addSelectionToNextFindMatch')
-  const isCursor = vscode.workspace.getConfiguration().get("reminder.isCursor");
+
+  // Handle cursor expansion if isCursor is enabled
   if (isCursor) {
-    const document = editor.document;
-    const position = editor.selection.active; // 当前光标位置
-    const wordRange = document.getWordRangeAtPosition(position); // 获取单词范围
-    if (wordRange) {
-      // 设置选区（只选中当前单词）
-      editor.selection = new vscode.Selection(wordRange.start, wordRange.end);
-    }
+    editor.selections = editor.selections.map(selection => {
+      const position = selection.active;
+      const wordRange = editor.document.getWordRangeAtPosition(position);
+      if (wordRange) {
+        return new vscode.Selection(wordRange.start, wordRange.end);
+      }
+      return selection;
+    });
   }
-  const Ranges = editor.selections
-  // 用”属性标识“ 分别获取属性 “前缀” 和 “样式“
-  const suffix = vscode.workspace.getConfiguration().get("reminder.suffix");
-  const fixStyle = vscode.workspace.getConfiguration().get("reminder.fixStyle");
-  Ranges.forEach(range => {
-    // 通过位置信息拿到被选中的文本，然后拼接要插入的log
+
+  const ranges = editor.selections;
+
+  ranges.forEach(range => {
     const text = editor.document.getText(range);
     let insertText = "console.log();";
     if (text) {
-      // 使用自定义属性 ”前缀“(suffix) 和 ”样式“(fixStyle) 来拼接log
-      insertText = `console.log('${suffix}${text.replace(/'/g, '"')} : ', '${fixStyle}', ${text});`;
-      if (fixStyle === "") {
-        insertText = `console.log('${suffix}${text.replace(/'/g, '"')}:' , ${text});`;
+      const escapedText = text.replace(/'/g, '"');
+      if (fixStyle) {
+        insertText = `console.log('${suffix}${escapedText} : ', '${fixStyle}', ${text});`;
+      } else {
+        insertText = `console.log('${suffix}${escapedText}:' , ${text});`;
       }
     }
     textArray.push(insertText);
   });
 
-  // “光标换行” 调用vscode内置的换行命令，所有focus的光标都会换行
-  vscode.commands.executeCommand("editor.action.insertLineAfter").then(() => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
-    const Ranges = editor.selections;
-    const positionList: vscode.Position[] = [];
-    Ranges.forEach((range, index) => {
-      const position = new vscode.Position(range.start.line, range.start.character);
-      positionList.push(position);
-    });
-    editor.edit(editBuilder => {
-      positionList.forEach((position, index) => {
-        editBuilder.insert(position, textArray[index]);
-      });
+  // Insert new lines and text
+  await vscode.commands.executeCommand("editor.action.insertLineAfter");
+  const newEditor = vscode.window.activeTextEditor;
+  if (!newEditor) return;
+
+  // Re-fetch selections as they might have changed after insertLineAfter
+  const currentSelections = newEditor.selections;
+
+  newEditor.edit(editBuilder => {
+    currentSelections.forEach((selection, index) => {
+      // We use the start of the current selection because insertLineAfter moves the cursor to the new line
+      if (index < textArray.length) {
+        editBuilder.insert(selection.start, textArray[index]);
+      }
     });
   });
 });
