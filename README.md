@@ -59,4 +59,4 @@
 ## 📝 另外
 如果有遇到问题，或者有好的建议，欢迎在 [掘金](https://juejin.cn/user/919655283950878) 提交，我会尽力帮你解决。
 代码写得开心，身体也要顾好哦！Love & Peace. 🤟
-[MIT](LICENSE)
+[MIT](https://gitee.com/zwl257/reminder-ffgz/blob/master/LICENSE)
