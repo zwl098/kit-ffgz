@@ -20,20 +20,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         
       - name: Build project
         run: |
           echo "Starting build process..."
           echo "Running webpack build..."
           echo "Running vsce package..."
-          yarn build
+          pnpm run build
           echo "Build completed. Checking output directory..."
           ls -la
         
